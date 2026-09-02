@@ -262,6 +262,16 @@ git commit -m "feat: configurar Supabase SSR clients (browser/server)"
 
 - [ ] **Step 1: Criar o middleware**
 
+> **Nota (ruling registrado no ledger, achado na revisão final de branch):**
+> ao contrário de `lib/supabase/client.ts`/`server.ts` (Task 3), que
+> realmente não são chamados em lugar nenhum nesta entrega, o middleware
+> roda em **toda** requisição. `createServerClient` lança uma exceção
+> quando `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` não
+> estão definidas, o que sem guard derruba o site inteiro (500 em toda
+> rota) em qualquer clone/deploy sem essas envs configuradas — o oposto
+> do que "infraestrutura pronta, sem uso ativo" deveria significar.
+> Adicionamos um guard: sem as duas envs, o middleware vira um no-op.
+
 Create `src/middleware.ts`:
 
 ```ts
@@ -269,11 +279,21 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  // Supabase é infraestrutura preparada, ainda sem uso ativo (ver Global
+  // Constraints) — sem envs configuradas o middleware não deve derrubar
+  // o site.
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return NextResponse.next({ request })
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
@@ -849,16 +869,28 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-      </body>
+    <html
+      lang="pt-BR"
+      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
+    >
+      <body className="antialiased">{children}</body>
     </html>
   )
 }
 ```
 
 Nota: `scroll-smooth` é a utility do Tailwind para `scroll-behavior: smooth`; `scroll-mt-20` (usado em cada `<section>`, Task 6) evita que a nav fixa cubra o topo da seção ao navegar pelas âncoras.
+
+Nota 2 (ruling registrado no ledger, achado na revisão final de branch): as
+classes com as variáveis de fonte (`geistSans.variable`/`geistMono.variable`)
+precisam ficar em `<html>`, não em `<body>` — o shadcn `init` (Task 2) gerou
+`html { @apply font-sans; }` em `globals.css`, e `--font-sans` só resolve
+para `--font-geist-sans` dentro do elemento onde essa variável CSS está
+definida. Com as variáveis em `<body>`, `<html>` nunca via `--font-geist-sans`
+e a fonte caía no serif padrão do navegador em quase toda a página (só
+`CardTitle`, que usa `font-heading` dentro do `<body>`, pegava a fonte
+certa). Colocando as duas classes de variável em `<html>` (junto com
+`scroll-smooth`) resolve — `<body>` fica só com `antialiased`.
 
 - [ ] **Step 4: Rodar o build de verificação**
 
