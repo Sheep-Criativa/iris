@@ -689,9 +689,18 @@ Create `src/modules/portfolio/components/social-links-section.tsx`:
 > `buttonVariants(...)` como `className` direto na `<a>` — evita depender
 > da API de polimorfismo específica da lib de primitivos e evita aninhar
 > `<a>` dentro do elemento `<button>` real que o `Button` renderiza.
+>
+> **Nota 2 (ruling registrado no ledger da Task 6):** a versão instalada de
+> `lucide-react` (^1.39.0) removeu os ícones de marca (`Github`, `Linkedin`,
+> `Instagram`, `Twitter` não existem mais no pacote). Em vez de substituir
+> por ícones genéricos enganosos (ex.: coração para Instagram), usamos
+> `ExternalLink` para todas as plataformas exceto e-mail, que usa `Mail` —
+> o rótulo de texto ao lado do ícone (`{link.label}`) já identifica a
+> plataforma, então um ícone genérico de link externo é honesto e não
+> confunde.
 
 ```tsx
-import { Github, Instagram, Linkedin, Mail, Twitter } from 'lucide-react'
+import { ExternalLink, Mail } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type {
@@ -703,11 +712,11 @@ interface SocialLinksSectionProps {
   links: SocialLink[]
 }
 
-const PLATFORM_ICONS: Record<SocialPlatform, typeof Github> = {
-  github: Github,
-  linkedin: Linkedin,
-  instagram: Instagram,
-  twitter: Twitter,
+const PLATFORM_ICONS: Record<SocialPlatform, typeof ExternalLink> = {
+  github: ExternalLink,
+  linkedin: ExternalLink,
+  instagram: ExternalLink,
+  twitter: ExternalLink,
   email: Mail,
 }
 
