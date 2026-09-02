@@ -493,7 +493,7 @@ git commit -m "feat: types e dados estáticos do portfólio"
 - Create: `src/modules/portfolio/components/site-nav.tsx`, `src/modules/portfolio/components/hero-about-section.tsx`, `src/modules/portfolio/components/career-section.tsx`, `src/modules/portfolio/components/studies-section.tsx`, `src/modules/portfolio/components/social-links-section.tsx`
 
 **Interfaces:**
-- Consumes: `Button`, `Card`/`CardHeader`/`CardTitle`/`CardDescription`/`CardContent`, `Separator`, `Badge` de `@/components/ui/*` (Task 2); ícones de `lucide-react` (Task 2); tipos `AboutContent`, `CareerItem`, `StudyItem`, `SocialLink`, `SocialPlatform` de `@/modules/portfolio/types/portfolio.types` (Task 5)
+- Consumes: `buttonVariants`, `Card`/`CardHeader`/`CardTitle`/`CardDescription`/`CardContent`, `Separator`, `Badge` de `@/components/ui/*` (Task 2 — nota: usamos `buttonVariants` diretamente em vez do componente `Button`, ver nota na Step 5); ícones de `lucide-react` (Task 2); tipos `AboutContent`, `CareerItem`, `StudyItem`, `SocialLink`, `SocialPlatform` de `@/modules/portfolio/types/portfolio.types` (Task 5)
 - Produces: `SiteNav()` (sem props), `HeroAboutSection({ about: AboutContent })`, `CareerSection({ items: CareerItem[] })`, `StudiesSection({ items: StudyItem[] })`, `SocialLinksSection({ links: SocialLink[] })` — usados pela Task 7.
 
 - [ ] **Step 1: Criar a navegação**
@@ -682,9 +682,17 @@ export function StudiesSection({ items }: StudiesSectionProps) {
 
 Create `src/modules/portfolio/components/social-links-section.tsx`:
 
+> **Nota (ruling registrado no ledger da Task 2):** o shadcn CLI atual gera
+> componentes sobre `@base-ui/react` (estilo `base-nova`), não Radix
+> (`New York`), e o `Button` gerado não aceita a prop `asChild` (Base UI
+> usa uma prop `render` diferente). Em vez de `<Button asChild>`, aplicamos
+> `buttonVariants(...)` como `className` direto na `<a>` — evita depender
+> da API de polimorfismo específica da lib de primitivos e evita aninhar
+> `<a>` dentro do elemento `<button>` real que o `Button` renderiza.
+
 ```tsx
 import { Github, Instagram, Linkedin, Mail, Twitter } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type {
   SocialLink,
@@ -714,12 +722,16 @@ export function SocialLinksSection({ links }: SocialLinksSectionProps) {
           {links.map((link) => {
             const Icon = PLATFORM_ICONS[link.platform]
             return (
-              <Button key={link.id} variant="outline" asChild>
-                <a href={link.href} target="_blank" rel="noreferrer noopener">
-                  <Icon className="size-4" />
-                  {link.label}
-                </a>
-              </Button>
+              <a
+                key={link.id}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={buttonVariants({ variant: 'outline' })}
+              >
+                <Icon className="size-4" />
+                {link.label}
+              </a>
             )
           })}
         </div>
