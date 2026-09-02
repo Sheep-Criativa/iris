@@ -1,4 +1,4 @@
-import { Code, Briefcase, Heart, MessageCircle, Mail } from 'lucide-react'
+import { ExternalLink, Mail } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type {
@@ -10,11 +10,11 @@ interface SocialLinksSectionProps {
   links: SocialLink[]
 }
 
-const PLATFORM_ICONS: Record<SocialPlatform, typeof Code> = {
-  github: Code,
-  linkedin: Briefcase,
-  instagram: Heart,
-  twitter: MessageCircle,
+const PLATFORM_ICONS: Record<SocialPlatform, typeof ExternalLink> = {
+  github: ExternalLink,
+  linkedin: ExternalLink,
+  instagram: ExternalLink,
+  twitter: ExternalLink,
   email: Mail,
 }
 
