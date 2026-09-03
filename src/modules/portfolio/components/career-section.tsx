@@ -13,11 +13,11 @@ export function CareerSection({ education, career }: CareerSectionProps) {
   return (
     <section
       id="trajetoria"
-      className="relative overflow-hidden bg-[#F3E6D3] py-24 sm:py-32"
+      className="relative overflow-hidden bg-[#F3E6D3] py-16 sm:py-24 lg:py-32 scroll-mt-20"
     >
       {/* Giant Soft Number "03" in Apricot (Imagem 01 - Daniel Gallego) */}
       <div
-        className="pointer-events-none select-none absolute left-4 -top-8 sm:left-12 sm:-top-16 z-0 font-display text-[15rem] sm:text-[22rem] font-black leading-none text-[#E8A76F]/25"
+        className="pointer-events-none select-none absolute left-2 -top-4 sm:left-12 sm:-top-16 z-0 font-display text-[8rem] xs:text-[11rem] sm:text-[16rem] lg:text-[22rem] font-black leading-none text-[#E8A76F]/25"
         aria-hidden="true"
       >
         03
@@ -33,42 +33,42 @@ export function CareerSection({ education, career }: CareerSectionProps) {
         </span>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section Header */}
-        <div className="max-w-3xl space-y-4">
-          <div className="flex items-center gap-3">
-            <span className="rounded-full bg-[#FAF4ED] px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#C35A38] border border-[#E0CEB7]">
+        <div className="max-w-3xl space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <span className="rounded-full bg-[#FAF4ED] px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-[#C35A38] border border-[#E0CEB7]">
               Seção 03
             </span>
-            <p className="font-handwriting text-3xl sm:text-4xl text-[#C35A38]">
+            <p className="font-handwriting text-2xl xs:text-3xl sm:text-4xl text-[#C35A38]">
               Trajetória & Experiência
             </p>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-[#291F1A]">
+          <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#291F1A]">
             O caminho percorrido entre teoria, clínica e supervisão.
           </h2>
-          <p className="text-base sm:text-lg text-[#6B5B52]">
+          <p className="text-sm sm:text-base lg:text-lg text-[#6B5B52]">
             Uma síntese da minha base acadêmica e da prática clínica que fundamentam minhas mentorias com graduandos.
           </p>
         </div>
 
         {/* Two-Column Grid: Education Timeline (Left) + Experience Cards (Right) */}
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="mt-10 sm:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
           {/* Left Column: Formação & Educação Timeline (Imagem 02) */}
-          <div className="lg:col-span-5 space-y-8">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-8">
             <div className="flex items-center gap-2 border-b-2 border-[#C35A38] pb-3">
-              <SparkleStarIcon size={20} className="text-[#C35A38]" />
-              <h3 className="font-display text-2xl font-bold text-[#291F1A]">
+              <SparkleStarIcon size={20} className="text-[#C35A38] shrink-0" />
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-[#291F1A]">
                 Formação Acadêmica
               </h3>
             </div>
 
-            <div className="relative pl-6 space-y-10 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-[#E0CEB7]">
+            <div className="relative pl-8 sm:pl-9 space-y-8 sm:space-y-10 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-[#E0CEB7]">
               {education.map((item) => (
                 <div key={item.id} className="relative group">
                   {/* Diamond / Sparkle Star Marker on the line */}
-                  <div className="absolute -left-[31px] top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#FAF4ED] text-[#C35A38] shadow-sm ring-2 ring-[#C35A38] transition-transform group-hover:scale-125">
+                  <div className="absolute -left-[32px] top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#FAF4ED] text-[#C35A38] shadow-sm ring-2 ring-[#C35A38] transition-transform group-hover:scale-125">
                     <SparkleStarIcon size={12} />
                   </div>
 
@@ -77,7 +77,7 @@ export function CareerSection({ education, career }: CareerSectionProps) {
                     {item.period}
                   </span>
 
-                  <h4 className="mt-2 font-display text-lg font-bold text-[#291F1A] leading-snug">
+                  <h4 className="mt-1.5 font-display text-base sm:text-lg font-bold text-[#291F1A] leading-snug">
                     {item.degree}
                   </h4>
 
@@ -97,26 +97,25 @@ export function CareerSection({ education, career }: CareerSectionProps) {
 
           {/* Right Column: Experiência Card (Warm Yellow/Mustard Container - Img 02) */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl bg-[#F5D98C] p-6 sm:p-10 text-[#291F1A] shadow-xl border-4 border-[#FAF4ED]">
-              <div className="flex items-center justify-between border-b-2 border-[#291F1A]/15 pb-4">
-                <div className="flex items-center gap-2.5">
-                  <RetroAsteriskIcon size={24} className="text-[#C35A38]" />
-                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#291F1A]">
+            <div className="rounded-3xl bg-[#F5D98C] p-5 xs:p-6 sm:p-8 lg:p-10 text-[#291F1A] shadow-xl border-4 border-[#FAF4ED]">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-[#291F1A]/15 pb-4">
+                <div className="flex items-center gap-2 sm:gap-2.5">
+                  <RetroAsteriskIcon size={24} className="text-[#C35A38] shrink-0" />
+                  <h3 className="font-display text-xl xs:text-2xl sm:text-3xl font-bold text-[#291F1A]">
                     Prática Clínica & Mentoria
                   </h3>
                 </div>
-                <span className="hidden sm:inline-block rounded-full bg-[#291F1A] px-3 py-1 text-[11px] font-bold text-[#FAF4ED] uppercase tracking-wider">
+                <span className="inline-block rounded-full bg-[#291F1A] px-3 py-1 text-[10px] sm:text-[11px] font-bold text-[#FAF4ED] uppercase tracking-wider">
                   Experiência
                 </span>
               </div>
 
-
-              <div className="mt-8 space-y-8">
+              <div className="mt-6 sm:mt-8 space-y-6 sm:space-y-8">
                 {career.map((item, idx) => (
                   <div
                     key={item.id}
                     className={`relative ${
-                      idx !== career.length - 1 ? 'border-b border-[#291F1A]/15 pb-8' : ''
+                      idx !== career.length - 1 ? 'border-b border-[#291F1A]/15 pb-6 sm:pb-8' : ''
                     }`}
                   >
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -128,20 +127,20 @@ export function CareerSection({ education, career }: CareerSectionProps) {
                       </span>
                     </div>
 
-                    <h4 className="mt-2 font-display text-xl font-bold text-[#291F1A]">
+                    <h4 className="mt-2 font-display text-lg sm:text-xl font-bold text-[#291F1A]">
                       {item.role}
                     </h4>
 
-                    <p className="mt-2 text-sm leading-relaxed text-[#291F1A]/85">
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#291F1A]/85">
                       {item.description}
                     </p>
 
                     {/* Hashtag Skill Badges (Imagem 02) */}
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    <div className="mt-3 sm:mt-4 flex flex-wrap gap-1.5 sm:gap-2">
                       {item.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-[#291F1A] px-3 py-1 text-[11px] font-semibold text-[#FAF4ED] transition-transform hover:scale-105"
+                          className="rounded-full bg-[#291F1A] px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-semibold text-[#FAF4ED] transition-transform hover:scale-105"
                         >
                           {tag}
                         </span>

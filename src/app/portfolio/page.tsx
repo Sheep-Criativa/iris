@@ -19,7 +19,7 @@ import { socialLinks } from '@/modules/portfolio/data/social-links.data'
 
 export default function PortfolioPage() {
   return (
-    <div className="min-h-screen bg-[#F3E6D3] text-[#291F1A]">
+    <div className="min-h-screen bg-[#F3E6D3] text-[#291F1A] overflow-x-hidden w-full relative">
       <SiteNav />
       <main>
         {/* Seção 01: Hero com tipografia editorial sobreposta + retrato */}

@@ -89,10 +89,15 @@
   * {
     border-color: #E0CEB7;
   }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
   body {
     background-color: #F3E6D3;
     color: #291F1A;
     font-family: var(--font-montserrat), sans-serif;
+    overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-fraunces), Georgia, serif;

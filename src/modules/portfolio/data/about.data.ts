@@ -19,8 +19,8 @@ export const aboutContent: AboutContent = {
     'Ética CFP & Afeto',
   ],
   handles: [
-    { platform: 'IG', handle: '@iris.psicologia', href: 'https://instagram.com/' },
-    { platform: 'WA', handle: 'Agendar Mentoria', href: 'https://wa.me/5511987654321' },
-    { platform: 'LT', handle: 'Currículo Lattes', href: 'https://lattes.cnpq.br/' },
+    { platform: 'instagram', handle: '@iris.psicologia', href: 'https://instagram.com/' },
+    { platform: 'email', handle: 'contato@irispsicologia.com.br', href: 'mailto:contato@irispsicologia.com.br' },
+    { platform: 'linkedin', handle: 'LinkedIn', href: 'https://linkedin.com/' },
   ],
 }
