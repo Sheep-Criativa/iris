@@ -1,17 +1,36 @@
-/**
- * Tipos placeholder do módulo de Blog.
- *
- * O Blog ainda não foi implementado — este arquivo existe apenas para
- * deixar a forma dos dados combinada com antecedência, para quando o
- * módulo for priorizado. Nenhum destes tipos é consumido em runtime
- * ainda.
- */
-export interface Post {
+export interface Category {
+  id: string
+  slug: string
+  name: string
+  description: string | null
+}
+
+export interface Tag {
+  id: string
+  slug: string
+  name: string
+}
+
+export interface PostSummary {
   id: string
   slug: string
   title: string
   excerpt: string
+  coverImageUrl: string | null
+  isFeatured: boolean
+  publishedAt: string | null
+  category: Category | null
+  tags: Tag[]
+}
+
+export interface PostDetail extends PostSummary {
   content: string
-  publishedAt: string
-  coverImageUrl?: string
+  seoTitle: string | null
+  seoDescription: string | null
+}
+
+export interface BlogSettings {
+  blogTitle: string
+  blogDescription: string | null
+  defaultSeoImageUrl: string | null
 }
