@@ -95,20 +95,28 @@ export async function getPublishedPosts(
   let postIdFilter: string[] | null = null
 
   if (params.tagSlug) {
-    const { data: tag } = await supabase
+    const { data: tag, error: tagError } = await supabase
       .from('tags')
       .select('id')
       .eq('slug', params.tagSlug)
       .maybeSingle()
 
+    if (tagError) {
+      throw new Error(`Failed to load tag "${params.tagSlug}": ${tagError.message}`)
+    }
+
     if (!tag) {
       return { posts: [], totalCount: 0, page, pageSize }
     }
 
-    const { data: postTags } = await supabase
+    const { data: postTags, error: postTagsError } = await supabase
       .from('post_tags')
       .select('post_id')
       .eq('tag_id', tag.id)
+
+    if (postTagsError) {
+      throw new Error(`Failed to load posts for tag "${params.tagSlug}": ${postTagsError.message}`)
+    }
 
     postIdFilter = (postTags ?? []).map((row) => row.post_id)
 
@@ -124,11 +132,15 @@ export async function getPublishedPosts(
     .order('published_at', { ascending: false })
 
   if (params.categorySlug) {
-    const { data: category } = await supabase
+    const { data: category, error: categoryError } = await supabase
       .from('categories')
       .select('id')
       .eq('slug', params.categorySlug)
       .maybeSingle()
+
+    if (categoryError) {
+      throw new Error(`Failed to load category "${params.categorySlug}": ${categoryError.message}`)
+    }
 
     if (!category) {
       return { posts: [], totalCount: 0, page, pageSize }
