@@ -125,11 +125,7 @@ export async function getPublishedPosts(
     }
   }
 
-  let query = supabase
-    .from('posts')
-    .select(POST_SUMMARY_COLUMNS, { count: 'exact' })
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
+  let categoryId: string | null = null
 
   if (params.categorySlug) {
     const { data: category, error: categoryError } = await supabase
@@ -146,19 +142,62 @@ export async function getPublishedPosts(
       return { posts: [], totalCount: 0, page, pageSize }
     }
 
-    query = query.eq('category_id', category.id)
+    categoryId = category.id
   }
 
-  if (postIdFilter) {
-    query = query.in('id', postIdFilter)
+  function buildFilteredQuery(countMode: 'exact' | 'head') {
+    let q =
+      countMode === 'head'
+        ? supabase
+            .from('posts')
+            .select('id', { count: 'exact', head: true })
+            .eq('status', 'published')
+        : supabase
+            .from('posts')
+            .select(POST_SUMMARY_COLUMNS, { count: 'exact' })
+            .eq('status', 'published')
+            .order('published_at', { ascending: false })
+
+    if (categoryId) {
+      q = q.eq('category_id', categoryId)
+    }
+
+    if (postIdFilter) {
+      q = q.in('id', postIdFilter)
+    }
+
+    return q
   }
 
-  const { data, error, count } = await query.range(
+  const { data, error, count } = await buildFilteredQuery('exact').range(
     (page - 1) * pageSize,
     page * pageSize - 1
   )
 
   if (error) {
+    // PostgREST retorna PGRST103 ("Requested range not satisfiable") quando
+    // a página pedida está além da última linha existente para o filtro
+    // aplicado. Isso não é um erro real — é só uma página vazia — então em
+    // vez de derrubar a rota com 500, refazemos a mesma query filtrada (sem
+    // .range()) só para contar as linhas e devolvemos uma lista vazia.
+    if (error.code === 'PGRST103') {
+      const { count: fallbackCount, error: countError } =
+        await buildFilteredQuery('head')
+
+      if (countError) {
+        throw new Error(
+          `Failed to load published posts: ${countError.message}`
+        )
+      }
+
+      return {
+        posts: [],
+        totalCount: fallbackCount ?? 0,
+        page,
+        pageSize,
+      }
+    }
+
     throw new Error(`Failed to load published posts: ${error.message}`)
   }
 
@@ -170,6 +209,26 @@ export async function getPublishedPosts(
     page,
     pageSize,
   }
+}
+
+export async function getFeaturedPost(): Promise<PostSummary | null> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('posts')
+    .select(POST_SUMMARY_COLUMNS)
+    .eq('status', 'published')
+    .eq('is_featured', true)
+    .order('published_at', { ascending: false })
+    .limit(1)
+
+  if (error) {
+    throw new Error(`Failed to load featured post: ${error.message}`)
+  }
+
+  const row = (data ?? [])[0]
+
+  return row ? mapPostSummary(row as unknown as PostSummaryRow) : null
 }
 
 export async function getPostBySlug(slug: string): Promise<PostDetail | null> {

@@ -2,11 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BlogNav } from '@/modules/blog/components/blog-nav'
 import { PostList } from '@/modules/blog/components/post-list'
+import { PostCard } from '@/modules/blog/components/post-card'
 import { CategoryBadge } from '@/modules/blog/components/category-badge'
 import { TagBadge } from '@/modules/blog/components/tag-badge'
 import {
   getBlogSettings,
   getCategories,
+  getFeaturedPost,
   getPublishedPosts,
   getTags,
 } from '@/modules/blog/data/posts.data'
@@ -38,10 +40,15 @@ export default async function BlogPage({
   const categorySlug =
     typeof params.categoria === 'string' ? params.categoria : undefined
   const tagSlug = typeof params.tag === 'string' ? params.tag : undefined
+  const parsedPage =
+    typeof params.pagina === 'string' ? Number(params.pagina) : NaN
   const requestedPage =
-    typeof params.pagina === 'string' ? Number(params.pagina) || 1 : 1
+    Number.isFinite(parsedPage) && parsedPage >= 1 ? Math.floor(parsedPage) : 1
 
-  const [settings, categories, tags, { posts, totalCount, page, pageSize }] =
+  const isFirstUnfilteredPage =
+    requestedPage === 1 && !categorySlug && !tagSlug
+
+  const [settings, categories, tags, { posts, totalCount, page, pageSize }, fetchedFeaturedPost] =
     await Promise.all([
       getBlogSettings(),
       getCategories(),
@@ -52,13 +59,12 @@ export default async function BlogPage({
         page: requestedPage,
         pageSize: PAGE_SIZE,
       }),
+      isFirstUnfilteredPage ? getFeaturedPost() : Promise.resolve(null),
     ])
 
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
-  const isFirstUnfilteredPage = page === 1 && !categorySlug && !tagSlug
-  const featuredPost = isFirstUnfilteredPage
-    ? posts.find((post) => post.isFeatured)
-    : undefined
+  const featuredPost =
+    isFirstUnfilteredPage && fetchedFeaturedPost ? fetchedFeaturedPost : undefined
   const remainingPosts = featuredPost
     ? posts.filter((post) => post.id !== featuredPost.id)
     : posts
@@ -103,11 +109,15 @@ export default async function BlogPage({
 
         {featuredPost && (
           <section className="mb-12">
-            <PostList posts={[featuredPost]} />
+            <div className="grid grid-cols-1">
+              <PostCard post={featuredPost} />
+            </div>
           </section>
         )}
 
-        <PostList posts={remainingPosts} />
+        {(!featuredPost || remainingPosts.length > 0) && (
+          <PostList posts={remainingPosts} />
+        )}
 
         {totalPages > 1 && (
           <nav className="mt-12 flex items-center justify-center gap-4 text-sm font-medium">
