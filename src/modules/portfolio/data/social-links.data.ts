@@ -1,19 +1,32 @@
 import type { SocialLink } from '@/modules/portfolio/types/portfolio.types'
 
-// Conteúdo de exemplo — substitua pelos links reais das redes sociais.
 export const socialLinks: SocialLink[] = [
-  { id: 'github', platform: 'github', label: 'GitHub', href: 'https://github.com/' },
   {
-    id: 'linkedin',
-    platform: 'linkedin',
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/in/',
+    id: 'whatsapp',
+    platform: 'whatsapp',
+    label: 'WhatsApp',
+    sublabel: 'Agendar mentoria ou tirar dúvidas',
+    href: 'https://wa.me/5511987654321',
   },
   {
     id: 'instagram',
     platform: 'instagram',
     label: 'Instagram',
+    sublabel: '@iris.psicologia — Dicas e reflexões',
     href: 'https://instagram.com/',
   },
-  { id: 'email', platform: 'email', label: 'E-mail', href: 'mailto:contato@exemplo.com' },
+  {
+    id: 'email',
+    platform: 'email',
+    label: 'E-mail',
+    sublabel: 'contato@irispsicologia.com.br',
+    href: 'mailto:contato@irispsicologia.com.br',
+  },
+  {
+    id: 'linkedin',
+    platform: 'linkedin',
+    label: 'LinkedIn',
+    sublabel: 'Artigos e trajetória profissional',
+    href: 'https://linkedin.com/',
+  },
 ]

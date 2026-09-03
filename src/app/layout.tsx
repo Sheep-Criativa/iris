@@ -1,21 +1,31 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Fraunces, Montserrat, Caveat } from 'next/font/google'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const fraunces = Fraunces({
+  variable: '--font-fraunces',
   subsets: ['latin'],
+  display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
   subsets: ['latin'],
+  display: 'swap',
+})
+
+const caveat = Caveat({
+  variable: '--font-caveat',
+  subsets: ['latin'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Íris — Portfólio',
-  description: 'Quem é Íris: carreira, projetos, estudos e motivações.',
+  title: 'Íris — Psicologia Clínica & Mentoria para Estudantes',
+  description:
+    'Acolhimento, supervisão e mentoria prática para estudantes de Psicologia construírem sua prática clínica com segurança, ética e afeto.',
 }
+
 
 export default function RootLayout({
   children,
@@ -25,9 +35,12 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
+      className={`${fraunces.variable} ${montserrat.variable} ${caveat.variable} scroll-smooth`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="font-sans antialiased text-[#291F1A] bg-[#F3E6D3] selection:bg-[#E8A76F] selection:text-[#291F1A]">
+        {children}
+      </body>
     </html>
   )
 }
+

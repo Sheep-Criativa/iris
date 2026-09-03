@@ -1,12 +1,26 @@
 import type { AboutContent } from '@/modules/portfolio/types/portfolio.types'
 
-// Conteúdo de exemplo — substitua pelos dados reais de Íris.
 export const aboutContent: AboutContent = {
-  name: 'Íris',
-  headline: 'Especialista em [área] apaixonada por [tema]',
+  name: 'Iris',
+  role: 'Estudantes de Psicologia',
+  headline: 'Apresentando minha jornada, meus aprendizados e o olhar que venho construindo através da Psicologia.',
+  bioShort:
+    'Mostrar as possibilidades que a Psicologia oferece, os aprendizados que surgem ao longo da graduação e os caminhos que podem ser construídos para uma carreira profissional com propósito.',
   bio: [
-    'Escreva aqui a apresentação principal de Íris: quem é, o que faz hoje e o que a move.',
-    'Um segundo parágrafo pode contar a trajetória resumida ou o que torna o trabalho dela único.',
+    'A graduação em Psicologia é cheia de encantos, mas também de angústias: o primeiro atendimento na clínica-escola, o medo do silêncio, a escolha da abordagem teórica e a temida escrita de relatórios.',
+    'Minha missão como mentora é construir com você um espaço de acolhimento mútuo e rigor técnico, onde suas dúvidas encontram respostas claras e suas inseguranças se transformam em potência clínica.',
   ],
-  highlights: ['Destaque rápido 1', 'Destaque rápido 2', 'Destaque rápido 3'],
+  location: 'Iris Amanda Rodrigues de Oliveira',
+  portraitUrl: '/images/iris-perfil.jpeg',
+  badges: [
+    'Mentoria para Graduandos',
+    'Supervisão Clínica',
+    'Orientação de Estágios & TCC',
+    'Ética CFP & Afeto',
+  ],
+  handles: [
+    { platform: 'IG', handle: '@iris.psicologia', href: 'https://instagram.com/' },
+    { platform: 'WA', handle: 'Agendar Mentoria', href: 'https://wa.me/5511987654321' },
+    { platform: 'LT', handle: 'Currículo Lattes', href: 'https://lattes.cnpq.br/' },
+  ],
 }
