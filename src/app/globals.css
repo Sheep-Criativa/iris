@@ -103,3 +103,54 @@
     font-family: var(--font-fraunces), Georgia, serif;
   }
 }
+
+@layer components {
+  .prose-blog {
+    color: #291f1a;
+    line-height: 1.75;
+  }
+  .prose-blog h2 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose-blog h3 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-blog p {
+    margin-bottom: 1.25rem;
+  }
+  .prose-blog a {
+    color: #c35a38;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-blog ul,
+  .prose-blog ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+  .prose-blog ul {
+    list-style-type: disc;
+  }
+  .prose-blog ol {
+    list-style-type: decimal;
+  }
+  .prose-blog blockquote {
+    border-left: 3px solid #c35a38;
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    color: #6b5b52;
+    font-style: italic;
+  }
+  .prose-blog img {
+    margin: 1.5rem 0;
+    border-radius: 1rem;
+  }
+}
