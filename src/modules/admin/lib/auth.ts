@@ -8,7 +8,7 @@ export async function verifySession() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) {
+  if (!user || user.id !== process.env.ADMIN_USER_ID) {
     redirect('/admin/login')
   }
 

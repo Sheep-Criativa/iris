@@ -20,12 +20,19 @@ export function DeletePostButton({
 }) {
   const [open, setOpen] = useState(false)
   const [pending, setPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleConfirm() {
     setPending(true)
-    await deletePost(postId)
-    setPending(false)
-    setOpen(false)
+    setError(null)
+    try {
+      await deletePost(postId)
+      setOpen(false)
+    } catch {
+      setError('Falha ao excluir o post. Tente novamente.')
+    } finally {
+      setPending(false)
+    }
   }
 
   return (
@@ -41,6 +48,7 @@ export function DeletePostButton({
           Tem certeza que quer excluir &quot;{postTitle}&quot;? Essa ação não pode ser
           desfeita.
         </p>
+        {error && <p className="text-sm text-red-600">{error}</p>}
         <DialogFooter>
           <button
             type="button"
