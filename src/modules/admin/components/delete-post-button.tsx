@@ -30,10 +30,8 @@ export function DeletePostButton({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <button type="button" className="text-sm font-medium text-red-600 hover:underline">
-          Excluir
-        </button>
+      <DialogTrigger className="text-sm font-medium text-red-600 hover:underline">
+        Excluir
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
