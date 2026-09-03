@@ -118,10 +118,14 @@ Mesmo componente client (`PostForm`) para `/admin/posts/novo` e
 - **Conteúdo** — editor Tiptap (negrito, itálico, H2/H3, lista com/sem
   marcador, citação, link), sincronizado como HTML num campo oculto do
   formulário para chegar à Server Action via `FormData`.
-- **Categoria** — select (shadcn `Select`), populado por
+- **Categoria** — `<select>` nativo (estilizado com Tailwind, não o
+  componente `Select` do shadcn — esse é baseado em `@base-ui/react` e não
+  produz um elemento de formulário nativo, exigiria sincronizar valor via
+  input oculto pra chegar ao `FormData`; um `<select>` nativo evita essa
+  complexidade sem perder nada visualmente), populado por
   `getCategories()` (já existente em `src/modules/blog/data/posts.data.ts`
   — reaproveitado, RLS já permite leitura para `authenticated`).
-- **Tags** — checkboxes (shadcn), populadas por `getTags()` (idem, já
+- **Tags** — checkboxes nativos, populadas por `getTags()` (idem, já
   existente).
 - **Imagem de capa** — input de arquivo; upload imediato ao selecionar
   (Server Action dedicada, chamada imperativamente a partir do client
@@ -129,8 +133,10 @@ Mesmo componente client (`PostForm`) para `/admin/posts/novo` e
   `covers/<uuid>-<nome-sanitizado>`; a URL pública resultante fica num
   campo oculto do formulário. Preview simples com `<img>` (sem
   `next/image` — mesma decisão da Fase 1, adiada para a Fase 3).
-- **Rascunho / Publicado** — switch.
-- **Destaque** — switch.
+- **Rascunho / Publicado** — checkbox nativo ("Publicado" marcado/
+  desmarcado), pela mesma razão do `<select>` acima: o `Switch` do shadcn
+  não é um controle de formulário nativo.
+- **Destaque** — checkbox nativo, mesma razão.
 - **SEO** — dois campos de texto (título/descrição), opcionais.
 
 Validação: sem biblioteca nova (o projeto não usa Zod nem similar) —
@@ -214,8 +220,12 @@ alfanuméricos por um único hífen, remove hífens nas pontas.
 ## Novos componentes shadcn/ui
 
 Adicionados via `pnpm exec shadcn add <nome>` (CLI já é dependência do
-projeto, `components.json` já configurado): `input`, `textarea`, `label`,
-`select`, `switch`, `dialog`, `table`.
+projeto, `components.json` já configurado): `input`, `textarea`, `label`
+(wrappers estilizados sobre elementos nativos — compatíveis com
+`FormData` normalmente), `dialog` (confirmação de exclusão — não é um
+controle de formulário, não tem esse problema) e `table` (semântico, só
+estrutura `<table>`). `select` e `switch` do shadcn **não** entram nesta
+fase — ver justificativa na seção do formulário de post acima.
 
 ## Novas dependências
 
@@ -238,6 +248,16 @@ necessário para o editor rich text (decisão já validada com o usuário).
 - **Sem controle de concorrência otimista**: se a Íris editar o mesmo post
   em duas abas, a última a salvar sobrescreve a outra. Aceitável para
   usuário único — não vale a complexidade agora.
+- **Limite da verificação automatizada nesta fase**: ao contrário da Fase
+  1 (onde `curl` verificava páginas públicas via GET), as Server Actions
+  de escrita (login, criar/editar/excluir post) usam um ID de action
+  criptografado e checagem de CSRF (Origin/Host) — não são testáveis de
+  forma confiável via `curl` direto sem um navegador real. A verificação
+  automatizada desta fase cobre: build/lint/typecheck, comportamento de
+  redirecionamento via `curl` (rota protegida sem sessão → `/admin/login`,
+  etc.) e leitura cuidadosa do código pelos revisores. O fluxo completo
+  (login → criar/editar/excluir post) precisa de uma checagem manual num
+  navegador real antes de considerar a fase encerrada.
 
 ## Fora de escopo nesta fase
 
