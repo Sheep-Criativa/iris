@@ -1,3 +1,5 @@
+import type { Category } from '@/modules/blog/types/blog.types'
+
 export interface AdminPostListItem {
   id: string
   slug: string
@@ -21,4 +23,8 @@ export interface PostEditable {
   isFeatured: boolean
   seoTitle: string | null
   seoDescription: string | null
+}
+
+export interface CategoryWithCount extends Category {
+  postCount: number
 }
