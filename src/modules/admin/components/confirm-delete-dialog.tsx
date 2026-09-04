@@ -5,6 +5,7 @@ import { unstable_rethrow } from 'next/navigation'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -43,7 +44,13 @@ export function ConfirmDeleteDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        setOpen(next)
+        if (next) setError(null)
+      }}
+    >
       <DialogTrigger className="text-sm font-medium text-red-600 hover:underline">
         {triggerLabel}
       </DialogTrigger>
@@ -51,7 +58,7 @@ export function ConfirmDeleteDialog({
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
-        <p className="text-sm text-gray-600">{description}</p>
+        <DialogDescription>{description}</DialogDescription>
         {error && <p className="text-sm text-red-600">{error}</p>}
         <DialogFooter>
           <button

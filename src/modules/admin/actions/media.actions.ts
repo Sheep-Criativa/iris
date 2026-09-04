@@ -86,18 +86,18 @@ export async function deleteMedia(id: string) {
     throw new Error('Mídia não encontrada.')
   }
 
+  const { error: deleteError } = await supabase.from('media_assets').delete().eq('id', id)
+
+  if (deleteError) {
+    throw new Error(`Failed to delete media record: ${deleteError.message}`)
+  }
+
   const { error: storageError } = await supabase.storage
     .from('blog-media')
     .remove([existing.storage_path])
 
   if (storageError) {
     throw new Error(`Failed to delete file from storage: ${storageError.message}`)
-  }
-
-  const { error: deleteError } = await supabase.from('media_assets').delete().eq('id', id)
-
-  if (deleteError) {
-    throw new Error(`Failed to delete media record: ${deleteError.message}`)
   }
 
   revalidatePath('/admin/midia')

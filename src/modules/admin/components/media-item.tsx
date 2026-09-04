@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, unstable_rethrow } from 'next/navigation'
 import { ConfirmDeleteDialog } from './confirm-delete-dialog'
 import { updateMediaAltText, deleteMedia } from '@/modules/admin/actions/media.actions'
 import type { MediaAsset } from '@/modules/admin/types/admin.types'
@@ -10,13 +10,21 @@ export function MediaItem({ media }: { media: MediaAsset }) {
   const router = useRouter()
   const [altText, setAltText] = useState(media.altText ?? '')
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleAltTextBlur() {
     if (altText === (media.altText ?? '')) return
     setSaving(true)
-    await updateMediaAltText(media.id, altText)
-    setSaving(false)
-    router.refresh()
+    setError(null)
+    try {
+      await updateMediaAltText(media.id, altText)
+      router.refresh()
+    } catch (err) {
+      unstable_rethrow(err)
+      setError('Não foi possível salvar o texto alternativo.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -36,6 +44,7 @@ export function MediaItem({ media }: { media: MediaAsset }) {
         className="rounded-md border border-gray-300 px-2 py-1 text-xs"
       />
       {saving && <p className="text-xs text-gray-500">Salvando…</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
       <ConfirmDeleteDialog
         triggerLabel="Excluir"
         title="Excluir imagem"

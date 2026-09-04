@@ -25,6 +25,9 @@ export async function createTag(
   const { error } = await supabase.from('tags').insert({ name, slug })
 
   if (error) {
+    if (error.code === '23505') {
+      return { error: 'Já existe uma tag com esse slug.' }
+    }
     return { error: `Falha ao criar tag: ${error.message}` }
   }
 
@@ -51,6 +54,9 @@ export async function updateTag(
   const { error } = await supabase.from('tags').update({ name, slug }).eq('id', id)
 
   if (error) {
+    if (error.code === '23505') {
+      return { error: 'Já existe uma tag com esse slug.' }
+    }
     return { error: `Falha ao atualizar tag: ${error.message}` }
   }
 

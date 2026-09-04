@@ -52,7 +52,7 @@ export default async function AdminCategoriesPage() {
                       triggerLabel="Excluir"
                       title="Excluir categoria"
                       description={`"${category.name}" está em ${category.postCount} post(s). Excluir a categoria não apaga os posts — eles ficam sem categoria. Continuar?`}
-                      onConfirm={() => deleteCategory(category.id)}
+                      onConfirm={deleteCategory.bind(null, category.id)}
                     />
                   </div>
                 </td>

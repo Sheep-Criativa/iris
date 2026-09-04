@@ -26,6 +26,9 @@ export async function createCategory(
   const { error } = await supabase.from('categories').insert({ name, slug, description })
 
   if (error) {
+    if (error.code === '23505') {
+      return { error: 'Já existe uma categoria com esse slug.' }
+    }
     return { error: `Falha ao criar categoria: ${error.message}` }
   }
 
@@ -56,6 +59,9 @@ export async function updateCategory(
     .eq('id', id)
 
   if (error) {
+    if (error.code === '23505') {
+      return { error: 'Já existe uma categoria com esse slug.' }
+    }
     return { error: `Falha ao atualizar categoria: ${error.message}` }
   }
 

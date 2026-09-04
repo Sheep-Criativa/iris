@@ -34,8 +34,13 @@ export function TagDialog({ action, triggerLabel, dialogTitle, initialTag }: Tag
     if (state && !state.error) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen(false)
+      if (!initialTag) {
+        setName('')
+        setSlug('')
+        setSlugTouched(false)
+      }
     }
-  }, [state])
+  }, [state, initialTag])
 
   function handleNameChange(value: string) {
     setName(value)

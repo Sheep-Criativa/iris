@@ -2,13 +2,6 @@ import 'server-only'
 import { createClient } from '@/lib/supabase/server'
 import type { MediaAsset } from '@/modules/admin/types/admin.types'
 
-type MediaAssetRow = {
-  id: string
-  storage_path: string
-  alt_text: string | null
-  uploaded_at: string
-}
-
 export async function getAllMedia(): Promise<MediaAsset[]> {
   const supabase = await createClient()
 
@@ -34,7 +27,7 @@ export async function getAllMedia(): Promise<MediaAsset[]> {
     }
   }
 
-  return ((mediaResult.data ?? []) as MediaAssetRow[]).map((row) => {
+  return (mediaResult.data ?? []).map((row) => {
     const { data: urlData } = supabase.storage.from('blog-media').getPublicUrl(row.storage_path)
     return {
       id: row.id,

@@ -16,14 +16,14 @@ export async function updateBlogSettings(
 
   const blogTitle = String(formData.get('blogTitle') ?? '').trim()
   const blogDescription = String(formData.get('blogDescription') ?? '').trim() || null
-  const defaultSeoImageUrl = String(formData.get('defaultSeoImageUrl') ?? '') || null
+  const defaultSeoImageUrl = String(formData.get('defaultSeoImageUrl') ?? '').trim() || null
 
   if (!blogTitle) {
     return { error: 'Preencha o título do blog.' }
   }
 
   const supabase = await createClient()
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('blog_settings')
     .update({
       blog_title: blogTitle,
@@ -31,9 +31,14 @@ export async function updateBlogSettings(
       default_seo_image_url: defaultSeoImageUrl,
     })
     .eq('id', 1)
+    .select('id')
 
   if (error) {
     return { error: `Falha ao salvar configurações: ${error.message}` }
+  }
+
+  if (!data || data.length === 0) {
+    return { error: 'Configuração não encontrada.' }
   }
 
   revalidatePath('/blog')

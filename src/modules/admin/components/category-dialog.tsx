@@ -39,8 +39,13 @@ export function CategoryDialog({
     if (state && !state.error) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen(false)
+      if (!initialCategory) {
+        setName('')
+        setSlug('')
+        setSlugTouched(false)
+      }
     }
-  }, [state])
+  }, [state, initialCategory])
 
   function handleNameChange(value: string) {
     setName(value)

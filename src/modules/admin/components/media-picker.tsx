@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type ChangeEvent } from 'react'
+import { useRouter, unstable_rethrow } from 'next/navigation'
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,7 @@ interface MediaPickerProps {
 }
 
 export function MediaPicker({ media, value, onChange }: MediaPickerProps) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -32,16 +34,23 @@ export function MediaPicker({ media, value, onChange }: MediaPickerProps) {
     if (!file) return
     setUploading(true)
     setError(null)
-    const formData = new FormData()
-    formData.append('file', file)
-    const result = await uploadMedia(formData)
-    setUploading(false)
-    if (result.error) {
-      setError(result.error)
-      return
-    }
-    if (result.media) {
-      handleSelect(result.media.publicUrl)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      const result = await uploadMedia(formData)
+      if (result.error) {
+        setError(result.error)
+        return
+      }
+      if (result.media) {
+        router.refresh()
+        handleSelect(result.media.publicUrl)
+      }
+    } catch (err) {
+      unstable_rethrow(err)
+      setError('Falha no upload. Tente novamente.')
+    } finally {
+      setUploading(false)
     }
   }
 
@@ -55,7 +64,13 @@ export function MediaPicker({ media, value, onChange }: MediaPickerProps) {
           className="h-32 w-full max-w-xs rounded-md object-cover"
         />
       )}
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next)
+          if (next) setError(null)
+        }}
+      >
         <DialogTrigger className="w-fit rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
           {value ? 'Trocar imagem' : 'Selecionar imagem'}
         </DialogTrigger>

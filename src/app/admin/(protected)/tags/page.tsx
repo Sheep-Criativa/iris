@@ -42,7 +42,7 @@ export default async function AdminTagsPage() {
                       triggerLabel="Excluir"
                       title="Excluir tag"
                       description={`"${tag.name}" está em ${tag.postCount} post(s). Excluir a tag remove essa marcação dos posts. Continuar?`}
-                      onConfirm={() => deleteTag(tag.id)}
+                      onConfirm={deleteTag.bind(null, tag.id)}
                     />
                   </div>
                 </td>
