@@ -32,3 +32,12 @@ export interface CategoryWithCount extends Category {
 export interface TagWithCount extends Tag {
   postCount: number
 }
+
+export interface MediaAsset {
+  id: string
+  storagePath: string
+  altText: string | null
+  uploadedAt: string
+  publicUrl: string
+  usedByPostCount: number
+}
