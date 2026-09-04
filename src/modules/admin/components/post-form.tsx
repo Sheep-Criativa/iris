@@ -2,10 +2,11 @@
 
 import { useActionState, useState } from 'react'
 import { RichTextEditor } from './rich-text-editor'
+import { MediaPicker } from './media-picker'
 import { slugify } from '@/modules/admin/lib/slugify'
-import { uploadCoverImage, type PostFormState } from '@/modules/admin/actions/posts.actions'
+import type { PostFormState } from '@/modules/admin/actions/posts.actions'
 import type { Category, Tag } from '@/modules/blog/types/blog.types'
-import type { PostEditable } from '@/modules/admin/types/admin.types'
+import type { MediaAsset, PostEditable } from '@/modules/admin/types/admin.types'
 
 interface PostFormProps {
   action: (
@@ -14,40 +15,22 @@ interface PostFormProps {
   ) => Promise<PostFormState>
   categories: Category[]
   tags: Tag[]
+  media: MediaAsset[]
   initialPost?: PostEditable
 }
 
-export function PostForm({ action, categories, tags, initialPost }: PostFormProps) {
+export function PostForm({ action, categories, tags, media, initialPost }: PostFormProps) {
   const [state, formAction, pending] = useActionState(action, undefined)
   const [title, setTitle] = useState(initialPost?.title ?? '')
   const [slug, setSlug] = useState(initialPost?.slug ?? '')
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPost))
   const [content, setContent] = useState(initialPost?.content ?? '')
   const [coverImageUrl, setCoverImageUrl] = useState(initialPost?.coverImageUrl ?? '')
-  const [uploading, setUploading] = useState(false)
-  const [uploadError, setUploadError] = useState<string | null>(null)
 
   function handleTitleChange(value: string) {
     setTitle(value)
     if (!slugTouched) {
       setSlug(slugify(value))
-    }
-  }
-
-  async function handleCoverFileChange(file: File | null) {
-    if (!file) return
-    setUploading(true)
-    setUploadError(null)
-    const formData = new FormData()
-    formData.append('file', file)
-    const result = await uploadCoverImage(formData)
-    setUploading(false)
-    if (result.error) {
-      setUploadError(result.error)
-      return
-    }
-    if (result.url) {
-      setCoverImageUrl(result.url)
     }
   }
 
@@ -141,26 +124,8 @@ export function PostForm({ action, categories, tags, initialPost }: PostFormProp
       </fieldset>
 
       <div className="flex flex-col gap-1">
-        <label htmlFor="coverFile" className="text-sm font-medium text-gray-700">
-          Imagem de capa
-        </label>
-        <input
-          id="coverFile"
-          type="file"
-          accept="image/*"
-          onChange={(event) => handleCoverFileChange(event.target.files?.[0] ?? null)}
-          className="text-sm"
-        />
-        {uploading && <p className="text-sm text-gray-500">Enviando imagem…</p>}
-        {uploadError && <p className="text-sm text-red-600">{uploadError}</p>}
-        {coverImageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={coverImageUrl}
-            alt="Prévia da capa"
-            className="mt-2 h-32 w-full max-w-xs rounded-md object-cover"
-          />
-        )}
+        <span className="text-sm font-medium text-gray-700">Imagem de capa</span>
+        <MediaPicker media={media} value={coverImageUrl} onChange={setCoverImageUrl} />
       </div>
 
       <label className="flex items-center gap-2 text-sm text-gray-700">
@@ -207,7 +172,7 @@ export function PostForm({ action, categories, tags, initialPost }: PostFormProp
 
       <button
         type="submit"
-        disabled={pending || uploading}
+        disabled={pending}
         className="w-fit rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
       >
         {pending ? 'Salvando…' : 'Salvar'}

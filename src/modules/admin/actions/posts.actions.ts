@@ -1,6 +1,5 @@
 'use server'
 
-import { randomUUID } from 'crypto'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
@@ -8,33 +7,6 @@ import { verifySession } from '@/modules/admin/lib/auth'
 
 export interface PostFormState {
   error?: string
-}
-
-export async function uploadCoverImage(
-  formData: FormData
-): Promise<{ url?: string; error?: string }> {
-  await verifySession()
-
-  const file = formData.get('file')
-  if (!(file instanceof File) || file.size === 0) {
-    return { error: 'Nenhum arquivo selecionado.' }
-  }
-
-  const supabase = await createClient()
-  const sanitizedName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '-')
-  const path = `covers/${randomUUID()}-${sanitizedName}`
-
-  const { error: uploadError } = await supabase.storage
-    .from('blog-media')
-    .upload(path, file)
-
-  if (uploadError) {
-    return { error: `Falha no upload: ${uploadError.message}` }
-  }
-
-  const { data } = supabase.storage.from('blog-media').getPublicUrl(path)
-
-  return { url: data.publicUrl }
 }
 
 async function syncPostTags(

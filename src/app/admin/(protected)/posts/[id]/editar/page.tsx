@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getCategories, getTags } from '@/modules/blog/data/posts.data'
 import { getPostForEdit } from '@/modules/admin/data/posts.admin.data'
+import { getAllMedia } from '@/modules/admin/data/media.admin.data'
 import { updatePost } from '@/modules/admin/actions/posts.actions'
 import { PostForm } from '@/modules/admin/components/post-form'
 
@@ -10,9 +11,10 @@ export default async function EditPostPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  const [categories, tags, post] = await Promise.all([
+  const [categories, tags, media, post] = await Promise.all([
     getCategories(),
     getTags(),
+    getAllMedia(),
     getPostForEdit(id),
   ])
 
@@ -25,7 +27,7 @@ export default async function EditPostPage({
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-2xl font-semibold text-gray-900">Editar post</h1>
-      <PostForm action={action} categories={categories} tags={tags} initialPost={post} />
+      <PostForm action={action} categories={categories} tags={tags} media={media} initialPost={post} />
     </div>
   )
 }
