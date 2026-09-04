@@ -21,7 +21,7 @@ export async function createClient() {
           } catch {
             // setAll chamado a partir de um Server Component sem acesso de
             // escrita a cookies — seguro ignorar, pois o middleware
-            // (src/middleware.ts) já garante o refresh de sessão.
+            // (src/proxy.ts) já garante o refresh de sessão.
           }
         },
       },
