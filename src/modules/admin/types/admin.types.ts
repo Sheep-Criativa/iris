@@ -1,4 +1,4 @@
-import type { Category } from '@/modules/blog/types/blog.types'
+import type { Category, Tag } from '@/modules/blog/types/blog.types'
 
 export interface AdminPostListItem {
   id: string
@@ -26,5 +26,9 @@ export interface PostEditable {
 }
 
 export interface CategoryWithCount extends Category {
+  postCount: number
+}
+
+export interface TagWithCount extends Tag {
   postCount: number
 }
