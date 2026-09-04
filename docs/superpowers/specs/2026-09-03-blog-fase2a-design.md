@@ -222,10 +222,12 @@ alfanuméricos por um único hífen, remove hífens nas pontas.
 Adicionados via `pnpm exec shadcn add <nome>` (CLI já é dependência do
 projeto, `components.json` já configurado): `input`, `textarea`, `label`
 (wrappers estilizados sobre elementos nativos — compatíveis com
-`FormData` normalmente), `dialog` (confirmação de exclusão — não é um
-controle de formulário, não tem esse problema) e `table` (semântico, só
-estrutura `<table>`). `select` e `switch` do shadcn **não** entram nesta
-fase — ver justificativa na seção do formulário de post acima.
+`FormData` normalmente) e `dialog` (confirmação de exclusão — não é um
+controle de formulário, não tem esse problema). A lista de posts usa uma
+`<table>` HTML simples estilizada com Tailwind em vez do componente
+`Table` do shadcn — não adiciona nada além de estilo para uma tabela deste
+tamanho. `select` e `switch` do shadcn **não** entram nesta fase — ver
+justificativa na seção do formulário de post acima.
 
 ## Novas dependências
 
