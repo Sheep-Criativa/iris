@@ -17,6 +17,30 @@ export function AdminSidebar() {
         >
           Posts
         </Link>
+        <Link
+          href="/admin/categorias"
+          className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
+        >
+          Categorias
+        </Link>
+        <Link
+          href="/admin/tags"
+          className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
+        >
+          Tags
+        </Link>
+        <Link
+          href="/admin/midia"
+          className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
+        >
+          Mídia
+        </Link>
+        <Link
+          href="/admin/configuracoes"
+          className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
+        >
+          Configurações
+        </Link>
       </nav>
       <form action={logout}>
         <button
