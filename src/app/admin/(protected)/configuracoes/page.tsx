@@ -7,7 +7,15 @@ export default async function AdminSettingsPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-semibold text-gray-900">Configurações do blog</h1>
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+          Configurações da Plataforma
+        </h1>
+        <p className="mt-1 text-xs text-slate-500">
+          Gerencie o título do blog, descrições globais e metadados de compartilhamento
+        </p>
+      </div>
+
       <SettingsForm initialSettings={settings} media={media} />
     </div>
   )

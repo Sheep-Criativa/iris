@@ -96,14 +96,14 @@ export function SocialLinksSection({ links }: SocialLinksSectionProps) {
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <SunburstIcon size={20} className="text-[#C35A38] shrink-0" />
             <span className="font-display text-base font-bold text-[#291F1A]">
-              Íris
+              Iris
             </span>
             <span>— Psicologia & Mentoria com Aconchego</span>
             <WarmHeartIcon size={14} className="text-[#C35A38] shrink-0" />
           </div>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 sm:gap-6">
-            <span>© 2026 Ecossistema Íris. Todos os direitos reservados.</span>
+            <span>© 2026 Ecossistema Iris. Todos os direitos reservados.</span>
             <a
               href="#sobre"
               className="font-bold text-[#C35A38] hover:underline"

@@ -68,7 +68,7 @@ export function PersonalOverviewSection({ overview }: PersonalOverviewSectionPro
               <div className="relative overflow-hidden rounded-2xl border-4 border-[#FAF4ED] bg-[#FAF4ED] shadow-2xl">
                 <Image
                   src={overview.workspaceImageUrl}
-                  alt="Mesa de estudos, livros e supervisão clínica de Íris"
+                  alt="Mesa de estudos, livros e supervisão clínica de Iris"
                   width={540}
                   height={400}
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"

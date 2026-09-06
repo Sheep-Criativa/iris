@@ -21,7 +21,7 @@ const caveat = Caveat({
 })
 
 export const metadata: Metadata = {
-  title: 'Íris — Psicologia Clínica & Mentoria para Estudantes',
+  title: 'Iris — Psicologia Clínica & Mentoria para Estudantes',
   description:
     'Acolhimento, supervisão e mentoria prática para estudantes de Psicologia construírem sua prática clínica com segurança, ética e afeto.',
 }

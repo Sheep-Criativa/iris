@@ -1,6 +1,6 @@
-# Íris — Portfólio
+# Iris — Portfólio
 
-Frontend do ecossistema Íris: portfólio pessoal (produto desta entrega) e
+Frontend do ecossistema Iris: portfólio pessoal (produto desta entrega) e
 base preparada para o Blog (placeholder, não implementado).
 
 ## Stack

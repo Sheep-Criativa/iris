@@ -178,7 +178,7 @@ export function HeroAboutSection({ about }: HeroAboutSectionProps) {
                 <div className="relative overflow-hidden rounded-t-[6.2rem] xs:rounded-t-[7.8rem] sm:rounded-t-[9rem] rounded-b-2xl border-4 border-[#FAF4ED] bg-[#FAF4ED] shadow-2xl">
                   <Image
                     src={about.portraitUrl}
-                    alt="Retrato de Íris — Psicóloga e Mentora"
+                    alt="Retrato de Iris — Psicóloga e Mentora"
                     width={480}
                     height={640}
                     priority

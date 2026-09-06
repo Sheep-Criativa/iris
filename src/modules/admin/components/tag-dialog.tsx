@@ -19,11 +19,18 @@ interface TagDialogProps {
     formData: FormData
   ) => Promise<TagFormState>
   triggerLabel: string
+  triggerClassName?: string
   dialogTitle: string
   initialTag?: TagWithCount
 }
 
-export function TagDialog({ action, triggerLabel, dialogTitle, initialTag }: TagDialogProps) {
+export function TagDialog({
+  action,
+  triggerLabel,
+  triggerClassName,
+  dialogTitle,
+  initialTag,
+}: TagDialogProps) {
   const [open, setOpen] = useState(false)
   const [state, formAction, pending] = useActionState(action, undefined)
   const [name, setName] = useState(initialTag?.name ?? '')
@@ -51,29 +58,37 @@ export function TagDialog({ action, triggerLabel, dialogTitle, initialTag }: Tag
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="text-sm font-medium text-gray-700 hover:underline">
+      <DialogTrigger
+        className={
+          triggerClassName ??
+          'text-xs font-semibold text-slate-700 hover:text-emerald-600 transition-colors'
+        }
+      >
         {triggerLabel}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="rounded-3xl border border-slate-100 bg-white p-6 shadow-xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{dialogTitle}</DialogTitle>
+          <DialogTitle className="text-xl font-bold tracking-tight text-slate-900">
+            {dialogTitle}
+          </DialogTitle>
         </DialogHeader>
-        <form action={formAction} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label htmlFor="name" className="text-sm font-medium text-gray-700">
-              Nome
+        <form action={formAction} className="flex flex-col gap-4 mt-2">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="name" className="text-xs font-bold text-slate-700">
+              Nome da Tag
             </label>
             <input
               id="name"
               name="name"
               value={name}
               onChange={(event) => handleNameChange(event.target.value)}
+              placeholder="Ex: #PrimeirosAtendimentos"
               required
-              className="rounded-md border border-gray-300 px-3 py-2 text-sm"
+              className="rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden transition-all"
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="slug" className="text-sm font-medium text-gray-700">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="slug" className="text-xs font-bold text-slate-700">
               Slug
             </label>
             <input
@@ -84,23 +99,28 @@ export function TagDialog({ action, triggerLabel, dialogTitle, initialTag }: Tag
                 setSlugTouched(true)
                 setSlug(event.target.value)
               }}
+              placeholder="primeiros-atendimentos"
               required
-              className="rounded-md border border-gray-300 px-3 py-2 text-sm"
+              className="rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden transition-all"
             />
           </div>
-          {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
-          <DialogFooter>
+          {state?.error && (
+            <p className="rounded-xl bg-rose-50 p-2.5 text-xs font-medium text-rose-700 border border-rose-200">
+              {state.error}
+            </p>
+          )}
+          <DialogFooter className="mt-2 flex gap-2 sm:justify-end">
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700"
+              className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={pending}
-              className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
+              className="rounded-full bg-emerald-600 px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-sm shadow-emerald-200 hover:bg-emerald-700 disabled:opacity-50 transition-all"
             >
               {pending ? 'Salvando…' : 'Salvar'}
             </button>
@@ -110,3 +130,4 @@ export function TagDialog({ action, triggerLabel, dialogTitle, initialTag }: Tag
     </Dialog>
   )
 }
+

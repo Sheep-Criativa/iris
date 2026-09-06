@@ -132,7 +132,7 @@ export function SiteNav() {
           >
             <div className="flex items-center justify-between pb-3 border-b border-[#E0CEB7]/80 text-xs font-semibold uppercase tracking-widest text-[#6B5B52]">
               <span>Menu de Navegação</span>
-              <span className="text-[#C35A38]">Íris Amanda</span>
+              <span className="text-[#C35A38]">Iris Amanda</span>
             </div>
 
             <ul className="mt-4 space-y-1">
