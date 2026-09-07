@@ -21,9 +21,9 @@ const caveat = Caveat({
 })
 
 export const metadata: Metadata = {
-  title: 'Iris — Psicologia Clínica & Mentoria para Estudantes',
+  title: 'Iris Amanda — Estudante de Psicologia | UNAMA',
   description:
-    'Acolhimento, supervisão e mentoria prática para estudantes de Psicologia construírem sua prática clínica com segurança, ética e afeto.',
+    'Portfólio de Iris Amanda, estudante do 6º semestre de Psicologia na UNAMA. Conheça sua trajetória, vivências práticas em clínica infantil e Recursos Humanos, e projetos acadêmicos.',
 }
 
 

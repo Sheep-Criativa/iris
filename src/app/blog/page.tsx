@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BlogNav } from '@/modules/blog/components/blog-nav'
+import { BlogBannerSlider } from '@/modules/blog/components/blog-banner-slider'
+import { BlogFilterBar } from '@/modules/blog/components/blog-filter-bar'
 import { PostList } from '@/modules/blog/components/post-list'
-import { PostCard } from '@/modules/blog/components/post-card'
-import { CategoryBadge } from '@/modules/blog/components/category-badge'
-import { TagBadge } from '@/modules/blog/components/tag-badge'
+import { SunburstIcon, WarmHeartIcon } from '@/modules/portfolio/components/aconchego-icons'
 import {
   getBlogSettings,
   getCategories,
@@ -18,15 +18,23 @@ const PAGE_SIZE = 9
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getBlogSettings()
   return {
-    title: settings.blogTitle,
-    description: settings.blogDescription ?? undefined,
+    title: `${settings.blogTitle} — Diário & Caderno de Psicologia | Iris Amanda`,
+    description:
+      settings.blogDescription ??
+      'Reflexões sobre a prática clínica, vivências acadêmicas na UNAMA, Recursos Humanos e o desenvolvimento humano.',
   }
 }
 
-function buildPageHref(page: number, categorySlug?: string, tagSlug?: string) {
+function buildPageHref(
+  page: number,
+  categorySlug?: string,
+  tagSlug?: string,
+  search?: string
+) {
   const qs = new URLSearchParams()
   if (categorySlug) qs.set('categoria', categorySlug)
   if (tagSlug) qs.set('tag', tagSlug)
+  if (search) qs.set('busca', search)
   qs.set('pagina', String(page))
   return `/blog?${qs.toString()}`
 }
@@ -40,13 +48,15 @@ export default async function BlogPage({
   const categorySlug =
     typeof params.categoria === 'string' ? params.categoria : undefined
   const tagSlug = typeof params.tag === 'string' ? params.tag : undefined
+  const searchQuery =
+    typeof params.busca === 'string' ? params.busca.trim().toLowerCase() : undefined
   const parsedPage =
     typeof params.pagina === 'string' ? Number(params.pagina) : NaN
   const requestedPage =
     Number.isFinite(parsedPage) && parsedPage >= 1 ? Math.floor(parsedPage) : 1
 
   const isFirstUnfilteredPage =
-    requestedPage === 1 && !categorySlug && !tagSlug
+    requestedPage === 1 && !categorySlug && !tagSlug && !searchQuery
 
   const [settings, categories, tags, { posts, totalCount, page, pageSize }, fetchedFeaturedPost] =
     await Promise.all([
@@ -62,87 +72,117 @@ export default async function BlogPage({
       isFirstUnfilteredPage ? getFeaturedPost() : Promise.resolve(null),
     ])
 
-  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
-  const featuredPost =
-    isFirstUnfilteredPage && fetchedFeaturedPost ? fetchedFeaturedPost : undefined
-  const remainingPosts = featuredPost
-    ? posts.filter((post) => post.id !== featuredPost.id)
+  // Se houver busca por texto, filtra os posts retornados
+  const displayPosts = searchQuery
+    ? posts.filter(
+        (p) =>
+          p.title.toLowerCase().includes(searchQuery) ||
+          p.excerpt.toLowerCase().includes(searchQuery) ||
+          (p.category?.name && p.category.name.toLowerCase().includes(searchQuery))
+      )
     : posts
 
-  return (
-    <div className="min-h-screen bg-[#F3E6D3] text-[#291F1A]">
-      <BlogNav blogTitle={settings.blogTitle} />
-      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <header className="mb-10 flex flex-col gap-3">
-          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            {settings.blogTitle}
-          </h1>
-          {settings.blogDescription && (
-            <p className="max-w-2xl text-[#6B5B52]">
-              {settings.blogDescription}
-            </p>
-          )}
-        </header>
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
 
-        {(categories.length > 0 || tags.length > 0) && (
-          <div className="mb-10 flex flex-wrap items-center gap-2">
-            {categories.map((category) => (
-              <Link key={category.id} href={`/blog?categoria=${category.slug}`}>
-                <CategoryBadge category={category} />
-              </Link>
-            ))}
-            {tags.map((tag) => (
-              <Link key={tag.id} href={`/blog?tag=${tag.slug}`}>
-                <TagBadge tag={tag} />
-              </Link>
-            ))}
-            {(categorySlug || tagSlug) && (
+  return (
+    <div className="min-h-screen bg-[#F3E6D3] text-[#291F1A] flex flex-col justify-between">
+      <div>
+        <BlogNav blogTitle="The Journal - Iris" />
+
+        <main className="mx-auto max-w-6xl px-4 pt-6 pb-16 sm:px-6 sm:pt-8 sm:pb-24">
+          {/* Banner Slider / Carousel in Top Area (Requested by User: Large Format, Pure Image) */}
+          {isFirstUnfilteredPage && <BlogBannerSlider />}
+
+          {/* Categories & Search Bar (Showit Filter Strip) */}
+          <BlogFilterBar
+            categories={categories}
+            activeCategorySlug={categorySlug}
+          />
+
+          {/* Search or Filter Feedback */}
+          {searchQuery && (
+            <div className="mb-8 flex items-center justify-between rounded-2xl bg-[#FAF4ED] p-4 border border-[#E0CEB7]">
+              <p className="text-sm text-[#291F1A]">
+                Exibindo resultados para a busca:{' '}
+                <span className="font-bold text-[#C35A38]">"{searchQuery}"</span>
+              </p>
               <Link
                 href="/blog"
-                className="text-xs font-medium text-[#C35A38] underline underline-offset-2"
+                className="text-xs font-bold text-[#C35A38] uppercase tracking-wider hover:underline"
               >
-                Limpar filtro
+                Limpar busca &times;
               </Link>
-            )}
-          </div>
-        )}
-
-        {featuredPost && (
-          <section className="mb-12">
-            <div className="grid grid-cols-1">
-              <PostCard post={featuredPost} />
             </div>
+          )}
+
+          {/* Editorial 3-Column Posts Grid */}
+          <section id="artigos" className="scroll-mt-24">
+            <PostList posts={displayPosts} />
+
+            {/* Editorial Pagination (Showit Style: < OLDER POSTS | NEWER POSTS >) */}
+            {totalPages > 1 && (
+              <nav
+                className="mt-14 sm:mt-20 border-t border-[#E0CEB7]/80 pt-8 flex items-center justify-center gap-6 text-xs sm:text-sm font-semibold uppercase tracking-widest"
+                aria-label="Paginação do diário"
+              >
+                {page > 1 ? (
+                  <Link
+                    href={buildPageHref(page - 1, categorySlug, tagSlug, searchQuery)}
+                    className="text-[#6B5B52] hover:text-[#C35A38] transition-colors"
+                  >
+                    &larr; Posts Anteriores
+                  </Link>
+                ) : (
+                  <span className="text-[#6B5B52]/40 pointer-events-none">
+                    &larr; Posts Anteriores
+                  </span>
+                )}
+
+                <span className="text-[#291F1A] border-x border-[#E0CEB7] px-4 sm:px-6">
+                  Página {page} de {totalPages}
+                </span>
+
+                {page < totalPages ? (
+                  <Link
+                    href={buildPageHref(page + 1, categorySlug, tagSlug, searchQuery)}
+                    className="text-[#6B5B52] hover:text-[#C35A38] transition-colors"
+                  >
+                    Próximos Posts &rarr;
+                  </Link>
+                ) : (
+                  <span className="text-[#6B5B52]/40 pointer-events-none">
+                    Próximos Posts &rarr;
+                  </span>
+                )}
+              </nav>
+            )}
           </section>
-        )}
+        </main>
+      </div>
 
-        {(!featuredPost || remainingPosts.length > 0) && (
-          <PostList posts={remainingPosts} />
-        )}
-
-        {totalPages > 1 && (
-          <nav className="mt-12 flex items-center justify-center gap-4 text-sm font-medium">
-            {page > 1 && (
-              <Link
-                href={buildPageHref(page - 1, categorySlug, tagSlug)}
-                className="rounded-full border border-[#E0CEB7] px-4 py-2 text-[#291F1A] transition-colors hover:border-[#C35A38] hover:text-[#C35A38]"
-              >
-                ← Anterior
-              </Link>
-            )}
-            <span className="text-[#6B5B52]">
-              Página {page} de {totalPages}
+      {/* Editorial Grounded Footer */}
+      <footer className="border-t border-[#E0CEB7] bg-[#FAF4ED] py-6 sm:py-8 text-xs text-[#6B5B52]">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <SunburstIcon size={18} className="text-[#C35A38] shrink-0" />
+            <span className="font-display text-sm sm:text-base font-bold text-[#291F1A]">
+              Iris Amanda
             </span>
-            {page < totalPages && (
-              <Link
-                href={buildPageHref(page + 1, categorySlug, tagSlug)}
-                className="rounded-full border border-[#E0CEB7] px-4 py-2 text-[#291F1A] transition-colors hover:border-[#C35A38] hover:text-[#C35A38]"
-              >
-                Próxima →
-              </Link>
-            )}
-          </nav>
-        )}
-      </main>
+            <span>— The Journal • Caderno de Psicologia</span>
+            <WarmHeartIcon size={14} className="text-[#C35A38] shrink-0" />
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 sm:gap-6">
+            <span>© 2026 Ecossistema Iris. Todos os direitos reservados.</span>
+            <Link
+              href="/portfolio"
+              className="font-bold text-[#C35A38] hover:underline"
+            >
+              Voltar ao Portfólio &uarr;
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

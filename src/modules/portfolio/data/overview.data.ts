@@ -2,39 +2,39 @@ import type { OverviewContent } from '@/modules/portfolio/types/portfolio.types'
 
 export const overviewContent: OverviewContent = {
   sectionNumber: '02',
-  scriptTitle: 'Conexão & Interação com a Psicologia',
-  heading: 'A formação em Psicologia colabora para transforma aprendizado em caminhos para a vida profissional.',
+  scriptTitle: 'Propósito & Trajetória',
+  heading: 'Transformando a curiosidade genuína em conhecimento, prática e compromisso com as pessoas.',
   paragraphs: [
-    'A transição dos livros acadêmicos para o mercado de trabalho da clínica costuma despertar a famosa "síndrome do impostor": será que estou preparado(a)? E se o paciente ficar em silêncio? Como preencher o prontuário de acordo com a resolução do CFP?',
-    'Acredito que o aprendizado clínico floresce quando o estudante é acolhido em sua vulnerabilidade. Não existe dúvida boba na graduação. Aqui, construímos uma ponte sólida entre as teorias aprendidas na faculdade e a sensibilidade humana exigida na escuta clínica.',
+    'Ao ingressar na graduação, pude transformar o interesse pelas histórias humanas em conhecimento e experiência, ampliando minha compreensão sobre o comportamento humano e sobre as diferentes formas de atuação da Psicologia.',
+    'Durante minha formação na UNAMA, busco vivenciar a área em múltiplos contextos: atividades, projetos acadêmicos e trabalhos voluntários. Cada uma dessas vivências é uma oportunidade de aprender, evoluir e descobrir novos caminhos, construindo a profissional dedicada e sensível que quero me tornar.',
   ],
   pillars: [
     {
-      title: 'Espaço seguro sem julgamento',
-      description: 'Um ambiente livre de pressões acadêmicas para você expor suas inseguranças, medos de atendimento e dúvidas sobre a prática.',
-      iconName: 'sun',
-    },
-    {
-      title: 'Da teoria à prática real',
-      description: 'Desmistificação de anamneses, hipóteses diagnósticas, manejos e técnicas com aplicabilidade direta nos seus estágios.',
+      title: 'Compreensão de Histórias',
+      description: 'Curiosidade empática para compreender diferentes perspectivas e entender o que existe por trás de comportamentos e vivências.',
       iconName: 'heart',
     },
     {
-      title: 'Ética e Prontuários CFP',
-      description: 'Orientações práticas e atualizadas sobre registro documental (Resolução CFP nº 01/2009 e 06/2019), sigilo e postura profissional.',
+      title: 'Clínica & Reabilitação Infantil',
+      description: 'Acompanhamento diário de crianças durante atendimentos clínicos, com registros de evolução e cuidado com o desenvolvimento.',
+      iconName: 'sun',
+    },
+    {
+      title: 'Recursos Humanos & R&S',
+      description: 'Experiência em recrutamento e seleção, triagem de candidatos, entrevistas e compreensão de pessoas em contextos organizacionais.',
       iconName: 'star',
     },
     {
-      title: 'Sua identidade profissional',
-      description: 'Apoio contínuo para você encontrar sua voz clínica e seu caminho teórico, respeitando suas afinidades e singularidade.',
+      title: 'Extensão & Voluntariado',
+      description: 'Participação ativa em atividades acadêmicas e projetos voluntários, ampliando o impacto social e a prática humanizada.',
       iconName: 'arch',
     },
   ],
   contact: {
-    location: 'Atendimentos Online (Google Meet) & Presencial',
+    location: 'Belém, PA · Presencial & Remoto',
     email: 'contato@irispsicologia.com.br',
     whatsapp: '+55 (11) 98765-4321',
-    status: 'Vagas Abertas para Mentoria',
+    status: '6º Semestre · UNAMA',
     linkedinHref: 'https://linkedin.com/',
   },
   workspaceImageUrl: '/images/iris-workspace.jpg',

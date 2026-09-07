@@ -67,7 +67,7 @@ export function StudiesSection({
             Instrumentos, escuta ativa e o que sustenta a prática.
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-[#6B5B52]">
-            O equilíbrio entre o rigor ético-científico da Psicologia e o acolhimento afetivo indispensável à formação clínica de quem está começando.
+            O equilíbrio entre o rigor ético-científico da Psicologia, a curiosidade pelo comportamento humano e a prática nos múltiplos campos de atuação.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export function StudiesSection({
             {/* Specialties Pill Badges */}
             <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#E0CEB7]">
               <h4 className="font-display text-xs sm:text-sm font-bold uppercase tracking-wider text-[#6B5B52]">
-                Focos da Mentoria
+                Áreas de Interesse & Estudo
               </h4>
               <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
                 {specialties.map((spec) => (
@@ -142,9 +142,9 @@ export function StudiesSection({
             </div>
 
             <div className="mt-6 sm:mt-8 rounded-2xl bg-[#7A8456] p-4 text-[#FAF4ED]">
-              <p className="font-display text-xs sm:text-sm font-bold">Compromisso Ético & Didático</p>
+              <p className="font-display text-xs sm:text-sm font-bold">Compromisso Ético & Humano</p>
               <p className="mt-1 text-[11px] sm:text-xs text-[#FAF4ED]/80 leading-relaxed">
-                Atuação estritamente embasada nas resoluções vigentes do CFP, ética inegociável e respeito à singularidade e abordagem de cada graduando.
+                Atuação embasada nas resoluções vigentes do CFP, escuta empática e dedicação ao desenvolvimento integral das pessoas.
               </p>
             </div>
           </div>
@@ -178,7 +178,7 @@ export function StudiesSection({
 
             <div className="mt-6 rounded-2xl bg-[#E8A76F]/20 p-4 border border-[#E8A76F]/40">
               <p className="text-[11px] sm:text-xs leading-relaxed text-[#291F1A]">
-                <span className="font-bold">Escuta Didática:</span> Tradução da literatura científica densa em orientações aplicadas e seguras para seus relatórios e atendimentos de estágio.
+                <span className="font-bold">Investigação Crítica:</span> Leitura constante de artigos científicos, atualização bibliográfica e aplicação prática e ética em relatórios e avaliações.
               </p>
             </div>
           </div>

@@ -150,10 +150,10 @@ export function HeroAboutSection({ about }: HeroAboutSectionProps) {
               {/* Action Buttons */}
               <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-3 sm:pt-4">
                 <a
-                  href="#contato"
+                  href="#trajetoria"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#291F1A] px-6 py-3 text-sm font-semibold text-[#FAF4ED] transition-all hover:bg-[#C35A38] hover:shadow-md active:scale-95"
                 >
-                  <span>Conhecer a Mentoria</span>
+                  <span>Conhecer Minha Trajetória</span>
                   <span aria-hidden="true">&rarr;</span>
                 </a>
                 <a
@@ -178,7 +178,7 @@ export function HeroAboutSection({ about }: HeroAboutSectionProps) {
                 <div className="relative overflow-hidden rounded-t-[6.2rem] xs:rounded-t-[7.8rem] sm:rounded-t-[9rem] rounded-b-2xl border-4 border-[#FAF4ED] bg-[#FAF4ED] shadow-2xl">
                   <Image
                     src={about.portraitUrl}
-                    alt="Retrato de Iris — Psicóloga e Mentora"
+                    alt="Retrato de Iris Amanda — Estudante de Psicologia"
                     width={480}
                     height={640}
                     priority
@@ -199,7 +199,7 @@ export function HeroAboutSection({ about }: HeroAboutSectionProps) {
                 {/* Floating Pill Badge 1 (Birth/Status - Img 02) */}
                 <div className="absolute -top-3 left-1 xs:-left-3 sm:-left-6 rounded-full bg-[#F5D98C] px-3 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-bold text-[#291F1A] shadow-md border border-[#FAF4ED] flex items-center gap-1.5 z-20">
                   <SunburstIcon size={14} className="text-[#C35A38] shrink-0" />
-                  <span className="whitespace-nowrap">Escuta & Embasamento</span>
+                  <span className="whitespace-nowrap">Curiosidade & Escuta</span>
                 </div>
 
                 {/* Floating Pill Badge 2 (Img 02) */}

@@ -5,14 +5,14 @@ export const socialLinks: SocialLink[] = [
     id: 'whatsapp',
     platform: 'whatsapp',
     label: 'WhatsApp',
-    sublabel: 'Agendar mentoria ou tirar dúvidas',
+    sublabel: 'Conversar e trocar experiências',
     href: 'https://wa.me/5511987654321',
   },
   {
     id: 'instagram',
     platform: 'instagram',
     label: 'Instagram',
-    sublabel: '@iris.psicologia — Dicas e reflexões',
+    sublabel: '@iris.psicologia — Vivências e reflexões',
     href: 'https://instagram.com/',
   },
   {
@@ -26,7 +26,7 @@ export const socialLinks: SocialLink[] = [
     id: 'linkedin',
     platform: 'linkedin',
     label: 'LinkedIn',
-    sublabel: 'Artigos e trajetória profissional',
+    sublabel: 'Conexões e trajetória profissional',
     href: 'https://linkedin.com/',
   },
 ]

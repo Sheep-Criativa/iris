@@ -46,10 +46,10 @@ export function CareerSection({ education, career }: CareerSectionProps) {
           </div>
 
           <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#291F1A]">
-            O caminho percorrido entre teoria, clínica e supervisão.
+            O caminho percorrido entre curiosidade, sala de aula e prática.
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-[#6B5B52]">
-            Uma síntese da minha base acadêmica e da prática clínica que fundamentam minhas mentorias com graduandos.
+            Uma síntese da minha graduação na UNAMA, projetos acadêmicos e vivências práticas em clínica e Recursos Humanos.
           </p>
         </div>
 
@@ -102,7 +102,7 @@ export function CareerSection({ education, career }: CareerSectionProps) {
                 <div className="flex items-center gap-2 sm:gap-2.5">
                   <RetroAsteriskIcon size={24} className="text-[#C35A38] shrink-0" />
                   <h3 className="font-display text-xl xs:text-2xl sm:text-3xl font-bold text-[#291F1A]">
-                    Prática Clínica & Mentoria
+                    Experiência Prática & Estágios
                   </h3>
                 </div>
                 <span className="inline-block rounded-full bg-[#291F1A] px-3 py-1 text-[10px] sm:text-[11px] font-bold text-[#FAF4ED] uppercase tracking-wider">
@@ -131,7 +131,7 @@ export function CareerSection({ education, career }: CareerSectionProps) {
                       {item.role}
                     </h4>
 
-                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#291F1A]/85">
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#291F1A]/85 whitespace-pre-line">
                       {item.description}
                     </p>
 

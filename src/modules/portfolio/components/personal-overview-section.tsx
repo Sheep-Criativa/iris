@@ -68,7 +68,7 @@ export function PersonalOverviewSection({ overview }: PersonalOverviewSectionPro
               <div className="relative overflow-hidden rounded-2xl border-4 border-[#FAF4ED] bg-[#FAF4ED] shadow-2xl">
                 <Image
                   src={overview.workspaceImageUrl}
-                  alt="Mesa de estudos, livros e supervisão clínica de Iris"
+                  alt="Mesa de estudos, livros e anotações de Psicologia de Iris"
                   width={540}
                   height={400}
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
@@ -76,7 +76,7 @@ export function PersonalOverviewSection({ overview }: PersonalOverviewSectionPro
                 
                 {/* Caption chip */}
                 <div className="absolute bottom-3 left-3 rounded-full bg-[#291F1A]/85 backdrop-blur px-3 py-1 text-[10px] sm:text-[11px] font-medium text-[#FAF4ED]">
-                  Espaço de Estudo & Supervisão
+                  Espaço de Estudos & Leituras
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@ export function PersonalOverviewSection({ overview }: PersonalOverviewSectionPro
               <div className="flex items-center justify-between border-b border-[#FAF4ED]/20 pb-3 sm:pb-4">
                 <div className="flex items-center gap-2">
                   <SunburstIcon size={20} className="text-[#F5D98C] shrink-0" />
-                  <span className="font-display text-base sm:text-lg font-bold">Canal de Mentoria</span>
+                  <span className="font-display text-base sm:text-lg font-bold">Contato & Conexão</span>
                 </div>
                 <span className="rounded-full bg-[#F5D98C] px-2.5 py-0.5 text-[10px] font-bold text-[#291F1A] shrink-0">
                   {overview.contact.status}

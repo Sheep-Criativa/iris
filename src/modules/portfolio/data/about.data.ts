@@ -7,16 +7,16 @@ export const aboutContent: AboutContent = {
   bioShort:
     'Mostrar as possibilidades que a Psicologia oferece, os aprendizados que surgem ao longo da graduação e os caminhos que podem ser construídos para uma carreira profissional com propósito.',
   bio: [
-    'A graduação em Psicologia é cheia de encantos, mas também de angústias: o primeiro atendimento na clínica-escola, o medo do silêncio, a escolha da abordagem teórica e a temida escrita de relatórios.',
-    'Minha missão como mentora é construir com você um espaço de acolhimento mútuo e rigor técnico, onde suas dúvidas encontram respostas claras e suas inseguranças se transformam em potência clínica.',
+    'Minha história com a Psicologia começou muito antes de entrar na faculdade. Desde cedo, sempre tive um interesse genuíno em conhecer histórias, compreender diferentes perspectivas e entender o que existe por trás de cada situação, pensamento ou comportamento. Essa curiosidade e a vontade de conhecer e estar perto de pessoas foram essenciais para despertar meu interesse pela área e continuam sendo parte importante da minha trajetória.',
+    'Ao ingressar na graduação, pude transformar essa curiosidade em conhecimento e experiência, ampliando minha compreensão sobre o comportamento humano e sobre as diferentes formas de atuação da Psicologia. Durante minha formação na UNAMA, tenho contato com diferentes contextos, projetos acadêmicos, trabalhos voluntários, vivência clínica no acompanhamento infantil e atuação em Recursos Humanos (Recrutamento e Seleção). Sigo motivada a aprender, crescer e contribuir para o desenvolvimento das pessoas.',
   ],
-  location: 'Iris Amanda Rodrigues de Oliveira',
+  location: 'Belém, Pará · Brasil',
   portraitUrl: '/images/iris-perfil.jpeg',
   badges: [
-    'Mentoria para Graduandos',
-    'Supervisão Clínica',
-    'Orientação de Estágios & TCC',
-    'Ética CFP & Afeto',
+    'UNAMA · 6º Semestre',
+    'Psicologia Clínica & Infantil',
+    'Recrutamento e Seleção (RH)',
+    'Projetos Acadêmicos & Voluntariado',
   ],
   handles: [
     { platform: 'instagram', handle: '@iris.psicologia', href: 'https://instagram.com/' },
