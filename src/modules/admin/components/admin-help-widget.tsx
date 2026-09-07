@@ -7,10 +7,10 @@ export function AdminHelpWidget() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end">
       {/* Popover Card */}
       {isOpen && (
-        <div className="mb-3 w-80 rounded-3xl border border-slate-100 bg-white p-5 shadow-xl animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="mb-3 w-[calc(100vw-2rem)] max-w-sm sm:w-80 rounded-3xl border border-slate-100 bg-white p-5 shadow-xl animate-in fade-in slide-in-from-bottom-3 duration-200">
           <div className="flex items-start justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
               <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">

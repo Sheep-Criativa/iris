@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { ExternalLink, Sparkles, ChevronDown, LogOut } from 'lucide-react'
+import { ExternalLink, Sparkles, ChevronDown, LogOut, Menu } from 'lucide-react'
 import { logout } from '@/modules/admin/actions/auth.actions'
+import { useAdminSidebar } from './admin-sidebar-context'
 
 interface AdminHeaderProps {
   userName?: string
@@ -16,6 +17,7 @@ export function AdminHeader({
 }: AdminHeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { toggle: toggleSidebar } = useAdminSidebar()
 
   // Fechar ao clicar fora ou pressionar ESC
   useEffect(() => {
@@ -43,27 +45,38 @@ export function AdminHeader({
   }, [isOpen])
 
   return (
-    <header className="sticky top-0 z-30 mb-6 flex flex-col gap-4 border-b border-slate-100 bg-white/90 px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 backdrop-blur-md md:flex-row md:items-center md:justify-between">
-      {/* Left: Brand Icon & Greeting */}
-      <div className="flex items-center gap-3.5">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-400 text-slate-900 shadow-sm shadow-amber-200/50">
-          <Sparkles className="h-6 w-6 text-white" />
+    <header className="sticky top-0 z-30 mb-6 flex h-16 w-full items-center justify-between border-b border-slate-100 bg-white/95 px-3 sm:px-6 lg:px-8 xl:px-10 backdrop-blur-md">
+      {/* Left: Mobile/Tablet Hamburger Toggle + Brand Icon & Greeting */}
+      <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+        {/* Mobile/Tablet Menu Hamburger Button (Visible < 1024px) */}
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          aria-label="Abrir menu de navegação"
+          className="flex lg:hidden h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-2xs hover:border-emerald-400 hover:text-emerald-700 transition-all active:scale-95 cursor-pointer"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+
+        {/* Sparkles Badge */}
+        <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-400 text-slate-900 shadow-xs shadow-amber-200/50">
+          <Sparkles className="h-5 w-5 text-white" />
         </div>
 
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900 md:text-2xl">
+        <div className="min-w-0">
+          <h1 className="text-base sm:text-lg lg:text-xl font-bold tracking-tight text-slate-900 truncate">
             Olá, {userName}!
           </h1>
-          <p className="text-xs font-medium text-slate-500">
-            Bem-vinda ao seu painel de controle e gestão da plataforma!
+          <p className="hidden sm:block text-[11px] lg:text-xs font-medium text-slate-500 truncate">
+            Bem-vinda ao seu painel de controle e gestão!
           </p>
         </div>
       </div>
 
-      {/* Right: Quick Links and User Profile Pill with Dropdown */}
-      <div className="flex flex-wrap items-center gap-3">
+      {/* Right: Desktop only (lg:flex) — On mobile/tablet, profile and links live in the hamburger drawer */}
+      <div className="hidden lg:flex items-center gap-3">
         {/* Quick public links */}
-        <div className="hidden sm:flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Link
             href="/blog"
             target="_blank"
@@ -97,7 +110,7 @@ export function AdminHeader({
             }`}
           >
             {/* Initials Pill Avatar */}
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-700 select-none">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-700 select-none shrink-0">
               IR
             </div>
 
@@ -105,13 +118,13 @@ export function AdminHeader({
               <span className="text-xs font-semibold text-slate-800 leading-tight">
                 {userName}
               </span>
-              <span className="text-[10px] text-slate-400 leading-tight max-w-[140px] sm:max-w-[180px] truncate">
+              <span className="text-[10px] text-slate-400 leading-tight max-w-[140px] truncate">
                 {userEmail}
               </span>
             </div>
 
             <ChevronDown
-              className={`h-3.5 w-3.5 text-slate-400 transition-transform duration-200 ${
+              className={`h-3.5 w-3.5 text-slate-400 transition-transform duration-200 shrink-0 ${
                 isOpen ? 'rotate-180 text-emerald-600' : ''
               }`}
             />
@@ -140,7 +153,7 @@ export function AdminHeader({
                     type="submit"
                     className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-rose-600 transition-colors hover:bg-rose-50 cursor-pointer"
                   >
-                    <LogOut className="h-4 w-4" />
+                    <LogOut className="h-4 w-4 shrink-0" />
                     <span>Sair da conta</span>
                   </button>
                 </form>

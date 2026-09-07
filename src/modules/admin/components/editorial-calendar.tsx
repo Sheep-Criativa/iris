@@ -100,11 +100,11 @@ export function EditorialCalendar({ posts }: EditorialCalendarProps) {
   }
 
   return (
-    <div id="calendario" className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8 shadow-sm">
+    <div id="calendario" className="rounded-3xl border border-slate-100 bg-white p-4 sm:p-6 lg:p-8 shadow-sm">
       {/* Header bar of the calendar (Image 1 reference) */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 sm:pb-6">
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+          <h2 className="text-lg font-bold tracking-tight text-slate-900 sm:text-2xl">
             Calendário Editorial
           </h2>
           <p className="mt-0.5 text-xs text-slate-500">
@@ -118,50 +118,53 @@ export function EditorialCalendar({ posts }: EditorialCalendarProps) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           {/* Month Switcher (< Agosto 2026 >) */}
           <div className="flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50/70 p-1 shadow-2xs">
             <button
               onClick={handlePrevMonth}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-slate-600 hover:bg-white hover:shadow-xs transition-all"
+              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-slate-600 hover:bg-white hover:shadow-xs transition-all"
               aria-label="Mês anterior"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
-            <span className="px-3 text-xs font-bold text-slate-800 tracking-wide">
+            <span className="px-2 sm:px-3 text-xs font-bold text-slate-800 tracking-wide">
               {capitalizedMonth} {currentYear}
             </span>
             <button
               onClick={handleNextMonth}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-slate-600 hover:bg-white hover:shadow-xs transition-all"
+              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-slate-600 hover:bg-white hover:shadow-xs transition-all"
               aria-label="Próximo mês"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
           </div>
 
           {/* Primary Action Button (Reference "+ Novo Lançamento" in green pill) */}
           <Link
             href="/admin/posts/novo"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sm shadow-emerald-200 hover:bg-emerald-700 active:scale-95 transition-all"
+            className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-emerald-600 px-4 sm:px-5 py-2 sm:py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sm shadow-emerald-200 hover:bg-emerald-700 active:scale-95 transition-all"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span>Novo Post</span>
           </Link>
         </div>
       </div>
 
-      {/* Weekday Column Headers (SEG, TER, QUA...) */}
-      <div className="mt-6 grid grid-cols-7 gap-2 text-center text-[11px] font-bold tracking-wider text-slate-400">
-        {WEEKDAYS.map((day) => (
-          <div key={day} className="py-2">
-            {day}
+      {/* Responsive Calendar Container (Horizontally scrollable on small mobile screens) */}
+      <div className="overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0">
+        <div className="min-w-[580px] sm:min-w-0">
+          {/* Weekday Column Headers (SEG, TER, QUA...) */}
+          <div className="mt-4 sm:mt-6 grid grid-cols-7 gap-2 text-center text-[11px] font-bold tracking-wider text-slate-400">
+            {WEEKDAYS.map((day) => (
+              <div key={day} className="py-1.5 sm:py-2">
+                {day}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* 7-column Calendar Grid */}
-      <div className="mt-2 grid grid-cols-7 gap-2 sm:gap-3 2xl:gap-4">
+          {/* 7-column Calendar Grid */}
+          <div className="mt-2 grid grid-cols-7 gap-1.5 sm:gap-2.5 2xl:gap-3">
         {calendarDays.map((item, index) => {
           const realPosts = getPostsForDay(item.date)
           const simulated = getSimulatedEvents(item.dayNumber, item.isCurrentMonth)
@@ -172,7 +175,7 @@ export function EditorialCalendar({ posts }: EditorialCalendarProps) {
             <div
               key={index}
               onClick={() => item.isCurrentMonth && setSelectedDay(item.dayNumber)}
-              className={`group min-h-[95px] sm:min-h-[110px] xl:min-h-[120px] 2xl:min-h-[135px] rounded-2xl p-2.5 2xl:p-3 transition-all flex flex-col justify-between ${
+              className={`group min-h-[75px] sm:min-h-[85px] lg:min-h-[100px] xl:min-h-[115px] rounded-xl sm:rounded-2xl p-2 sm:p-2.5 transition-all flex flex-col justify-between ${
                 !item.isCurrentMonth
                   ? 'bg-slate-50/50 opacity-40'
                   : isSelected
@@ -237,7 +240,10 @@ export function EditorialCalendar({ posts }: EditorialCalendarProps) {
             </div>
           )
         })}
+          </div>
+        </div>
       </div>
     </div>
   )
 }
+
