@@ -57,7 +57,7 @@ export function SocialLinksSection({ links }: SocialLinksSectionProps) {
                 <span aria-hidden="true">&rarr;</span>
               </a>
               <a
-                href="mailto:contato@irispsicologia.com.br"
+                href={links.find((l) => l.platform === 'email')?.href || 'mailto:irisamanda2016123@gmail.com'}
                 className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#FAF4ED] bg-transparent px-6 py-3.5 sm:px-8 sm:py-4 text-xs sm:text-sm font-bold text-[#FAF4ED] transition-all hover:bg-[#FAF4ED]/20 hover:scale-105 active:scale-95"
               >
                 <span>Enviar um E-mail</span>

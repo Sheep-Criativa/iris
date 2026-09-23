@@ -32,10 +32,10 @@ export const overviewContent: OverviewContent = {
   ],
   contact: {
     location: 'Belém, PA · Presencial & Remoto',
-    email: 'contato@irispsicologia.com.br',
+    email: 'irisamanda2016123@gmail.com',
     whatsapp: '+55 (11) 98765-4321',
     status: '6º Semestre · UNAMA',
-    linkedinHref: 'https://linkedin.com/',
+    linkedinHref: 'https://www.linkedin.com/in/iris-amanda-oliveira-566982376/',
   },
   workspaceImageUrl: '/images/iris-workspace.jpg',
 }

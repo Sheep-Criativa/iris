@@ -111,6 +111,19 @@ export function PersonalOverviewSection({ overview }: PersonalOverviewSectionPro
                   <span className="font-bold text-[#F5D98C] shrink-0">WhatsApp:</span>
                   <span>{overview.contact.whatsapp}</span>
                 </div>
+                {overview.contact.linkedinHref && (
+                  <div className="flex items-center gap-2 text-[#FAF4ED]/90 min-w-0">
+                    <span className="font-bold text-[#F5D98C] shrink-0">LinkedIn:</span>
+                    <a
+                      href={overview.contact.linkedinHref}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="underline hover:text-[#F5D98C] transition-colors truncate"
+                    >
+                      Perfil Profissional
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

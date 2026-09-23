@@ -19,8 +19,8 @@ export const aboutContent: AboutContent = {
     'Projetos Acadêmicos & Voluntariado',
   ],
   handles: [
-    { platform: 'instagram', handle: '@iris.psicologia', href: 'https://instagram.com/' },
-    { platform: 'email', handle: 'contato@irispsicologia.com.br', href: 'mailto:contato@irispsicologia.com.br' },
-    { platform: 'linkedin', handle: 'LinkedIn', href: 'https://linkedin.com/' },
+    { platform: 'instagram', handle: '@iirisamd_', href: 'https://www.instagram.com/iirisamd_/' },
+    { platform: 'email', handle: 'irisamanda2016123@gmail.com', href: 'mailto:irisamanda2016123@gmail.com' },
+    { platform: 'linkedin', handle: 'Iris Amanda Oliveira', href: 'https://www.linkedin.com/in/iris-amanda-oliveira-566982376/' },
   ],
 }

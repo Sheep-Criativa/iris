@@ -19,19 +19,19 @@ const SOCIAL_ICONS_CONFIG = [
     platform: 'instagram',
     label: 'Instagram',
     icon: OfficialInstagramIcon,
-    defaultHref: 'https://instagram.com/',
+    defaultHref: 'https://www.instagram.com/iirisamd_/',
   },
   {
     platform: 'email',
     label: 'E-mail',
     icon: OfficialMailIcon,
-    defaultHref: 'mailto:contato@irispsicologia.com.br',
+    defaultHref: 'mailto:irisamanda2016123@gmail.com',
   },
   {
     platform: 'linkedin',
     label: 'LinkedIn',
     icon: OfficialLinkedinIcon,
-    defaultHref: 'https://linkedin.com/',
+    defaultHref: 'https://www.linkedin.com/in/iris-amanda-oliveira-566982376/',
   },
 ]
 
